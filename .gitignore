@@ -1,0 +1,10 @@
+._*.*
+FSharpTracer/FSharpTracer/obj/
+FSharpTracer/FSharpTracer/bin/
+*.vsp
+CPlusPlusTracer/CPlusPlusTracer/Release/
+CPlusPlusTracer/CPlusPlusTracer/Debug/
+*.sdf
+*.psess
+*.opensdf
+*.png
