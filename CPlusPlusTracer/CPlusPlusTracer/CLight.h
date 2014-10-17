@@ -7,8 +7,10 @@ using namespace std;
 
 class CLight
 {
+	CVector Position;
+	CColor Color;
 public:
-   const shared_ptr<CVector> Position;
-   const shared_ptr<CColor> Color;
-   CLight(const shared_ptr<CVector>, const shared_ptr<CColor>);
+   CLight(CVector, CColor);
+   CColor GetColor();
+   CVector GetPosition();
 };

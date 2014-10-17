@@ -8,13 +8,14 @@ using namespace std;
 
 class CSphere : public CSceneObject
 {
+   CVector Position;
+   double Radius;
+   shared_ptr<CSurface> Surface;
 public:
-   const shared_ptr<CVector> Position;
-   const double Radius;
-   const shared_ptr<CSurface> Surface;
-   CSphere(const shared_ptr<CVector>, double, const shared_ptr<CSurface>);
 
-   shared_ptr<CIntersection> Intersects(const shared_ptr<CRay>);
-   shared_ptr<CVector> Normal(const shared_ptr<CVector>);
+   CSphere(CVector, double, shared_ptr<CSurface>);
+
+   shared_ptr<CIntersection> Intersects(CRay);
+   CVector Normal(CVector);
    shared_ptr<CSurface> GetSurface();
 };

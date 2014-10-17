@@ -1,21 +1,19 @@
 #include "CPlane.h"
 
 
-CPlane::CPlane(const shared_ptr<CVector> normal, double offset, const shared_ptr<CSurface> surface)
+CPlane::CPlane(CVector normal, double offset, shared_ptr<CSurface> surface)
    : PlaneNormal(normal), Offset(offset), Surface(surface) {
 }
 
-shared_ptr<CIntersection> CPlane::Intersects(const shared_ptr<CRay> ray) {
-   auto denom = this->PlaneNormal->Dot(ray->Direction);
+shared_ptr<CIntersection> CPlane::Intersects(CRay ray) {
+   auto denom = this->PlaneNormal.Dot(ray.GetDirection());
    if (denom > 0.0) {
       return nullptr;
    }
-   return make_shared<CIntersection>(ray, 
-      (this->PlaneNormal->Dot(ray->Position) + this->Offset) / -denom, 
-      make_shared<CPlane>(this->PlaneNormal, this->Offset, this->Surface));
+   return make_shared<CIntersection>(ray, (this->PlaneNormal.Dot(ray.GetPosition()) + this->Offset) / -denom, this);
 }
 
-shared_ptr<CVector> CPlane::Normal(const shared_ptr<CVector> pos) {
+CVector CPlane::Normal(CVector pos) {
    return this->PlaneNormal;
 }
 

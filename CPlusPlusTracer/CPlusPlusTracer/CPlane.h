@@ -9,14 +9,14 @@ using namespace std;
 
 class CPlane : public CSceneObject
 {
+   CVector PlaneNormal;
+   double Offset;
+   shared_ptr<CSurface> Surface;
 public:
-   const shared_ptr<CVector> PlaneNormal;
-   const double Offset;
-   const shared_ptr<CSurface> Surface;
-   CPlane(const shared_ptr<CVector>, double, const shared_ptr<CSurface>);
+   CPlane(CVector, double, shared_ptr<CSurface>);
 
-   shared_ptr<CIntersection> Intersects(const shared_ptr<CRay>);
-   shared_ptr<CVector> Normal(const shared_ptr<CVector>);
+   shared_ptr<CIntersection> Intersects(CRay);
+   CVector Normal(CVector);
    shared_ptr<CSurface> GetSurface();
 };
 

@@ -3,19 +3,20 @@
 CColor::CColor(double r, double g, double b) : R(r), G(g), B(b) {
 }
 
-shared_ptr<CColor> CColor::Add(const shared_ptr<CColor> c) {
-   return make_shared<CColor>(this->R + c->R, this->G + c->G, this->B + c->B);
+CColor CColor::Add(CColor c) {
+   return CColor(this->R + c.R, this->G + c.G, this->B + c.B);
 }
 
-shared_ptr<CColor> CColor::Subtract(const shared_ptr<CColor> c) {
-   return make_shared<CColor>(this->R - c->R, this->G - c->G, this->B - c->B);
+CColor CColor::Subtract(CColor c) {
+   return CColor(this->R - c.R, this->G - c.G, this->B - c.B);
 }
 
-shared_ptr<CColor> CColor::Scale(double s) {
-   return make_shared<CColor>(this->R * s, this->G * s, this->B * s);
+CColor CColor::Scale(double s) {
+   return CColor(this->R * s, this->G * s, this->B * s);
 }
-shared_ptr<CColor> CColor::Multiply(const shared_ptr<CColor> c) {
-   return make_shared<CColor>(this->R * c->R, this->G * c->G, this->B * c->B);
+
+CColor CColor::Multiply(CColor c) {
+   return CColor(this->R * c.R, this->G * c.G, this->B * c.B);
 }
 
 int CColor::Legalize(double d) {

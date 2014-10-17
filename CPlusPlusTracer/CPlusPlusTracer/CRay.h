@@ -5,7 +5,10 @@
 using namespace std;
 class CRay
 {
+   CVector Position;
+   CVector Direction;
 public:
-   const shared_ptr<CVector> Position, Direction;
-   CRay(shared_ptr<CVector>, shared_ptr<CVector>);
+   CRay(CVector, CVector);
+   CVector GetPosition();
+   CVector GetDirection();
 };

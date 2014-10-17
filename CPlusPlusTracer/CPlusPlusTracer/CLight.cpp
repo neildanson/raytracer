@@ -1,4 +1,11 @@
 #include "CLight.h"
 
-CLight::CLight(const shared_ptr<CVector> position, const shared_ptr<CColor> CColor) : Position(position), Color(CColor) {
+CLight::CLight(CVector position, CColor CColor) : Position(position), Color(CColor) {
+}
+
+CColor CLight::GetColor() {
+	return this->Color;
+}
+CVector CLight::GetPosition() {
+	return this->Position;
 }

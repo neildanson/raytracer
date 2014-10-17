@@ -4,16 +4,16 @@ double CCheckerboard::Roughness() {
    return 150.0;
 }
 
-shared_ptr<CColor> CCheckerboard::Diffuse(const shared_ptr<CVector> pos) {
-   return fmod(floor(pos->X) + floor(pos->Z), 2.0) != 0 ? 
-      make_shared<CColor>(1.0,1.0,1.0) : 
-      make_shared<CColor>(0.0,0.0,0.0);
+CColor CCheckerboard::Diffuse(CVector pos) {
+   return fmod(floor(pos.GetX()) + floor(pos.GetZ()), 2.0) != 0 ? 
+      CColor(1.0,1.0,1.0) : 
+      CColor(0.0,0.0,0.0);
 }
 
-shared_ptr<CColor> CCheckerboard::Specular(const shared_ptr<CVector> pos) {
-   return make_shared<CColor>(1.0, 1.0, 1.0);
+CColor CCheckerboard::Specular(CVector pos) {
+   return CColor(1.0, 1.0, 1.0);
 }
 
-double CCheckerboard::Reflect(const shared_ptr<CVector> pos) {
-   return fmod(floor(pos->X) + floor(pos->Z), 2.0) != 0 ? 1.0 : 0.7;
+double CCheckerboard::Reflect(CVector pos) {
+   return fmod(floor(pos.GetX()) + floor(pos.GetZ()), 2.0) != 0 ? 1.0 : 0.7;
 }

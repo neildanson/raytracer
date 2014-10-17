@@ -1,4 +1,4 @@
-//g++ *.cpp -std=c++11 -O2
+//g++ *.cpp -std=c++11 -O3
 #include "CCamera.h"
 #include "CVector.h"
 #include "CLight.h"
@@ -24,43 +24,43 @@ using namespace std;
 int main(int argc, char*  argv[])
 {
    auto camera = CCamera::CreateCamera(
-      make_shared<CVector>(3.0, 2.0, 4.0),
-      make_shared<CVector>(-1.0, 0.5, 0.0));
+      CVector(3.0, 2.0, 4.0),
+      CVector(-1.0, 0.5, 0.0));
 
-   auto objects = vector<shared_ptr<CSceneObject>>();
+   auto objects = vector<CSceneObject*>();
    objects.push_back(
-      make_shared<CSphere>(
-      make_shared<CVector>(0.0, 1.0, 0.0),
+      new CSphere(
+      CVector(0.0, 1.0, 0.0),
       1.0,
       make_shared<CShiny>()));
    objects.push_back(
-      make_shared<CSphere>(
-      make_shared<CVector>(-1.0, 0.5, 1.5),
+      new CSphere(
+      CVector(-1.0, 0.5, 1.5),
       0.5,
       make_shared<CShiny>()));
    objects.push_back(
-      make_shared<CPlane>(
-      make_shared<CVector>(0.0, 1.0, 0),
+      new CPlane(
+      CVector(0.0, 1.0, 0),
       0.0,
       make_shared<CCheckerboard>()));
 
-   auto lights = vector<shared_ptr<CLight>>();
+   auto lights = vector<CLight>();
    lights.push_back(
-      make_shared<CLight>(
-      make_shared<CVector>(-2.0, 2.5, 0.0),
-      make_shared<CColor>(0.49, 0.07, 0.07)));
+      CLight(
+      CVector(-2.0, 2.5, 0.0),
+      CColor(0.49, 0.07, 0.07)));
    lights.push_back(
-      make_shared<CLight>(
-      make_shared<CVector>(1.5, 2.5, 1.5),
-      make_shared<CColor>(0.07, 0.07, 0.49)));
+      CLight(
+      CVector(1.5, 2.5, 1.5),
+      CColor(0.07, 0.07, 0.49)));
    lights.push_back(
-      make_shared<CLight>(
-      make_shared<CVector>(1.5, 2.5, -1.5),
-      make_shared<CColor>(0.07, 0.49, 0.07)));
+      CLight(
+      CVector(1.5, 2.5, -1.5),
+      CColor(0.07, 0.49, 0.07)));
    lights.push_back(
-      make_shared<CLight>(
-      make_shared<CVector>(0.0, 3.5, 0.0),
-      make_shared<CColor>(0.21, 0.21, 0.21)));
+      CLight(
+      CVector(0.0, 3.5, 0.0),
+      CColor(0.21, 0.21, 0.21)));
    auto scene = CScene(camera, objects, lights);
    int* result = new int[1920 * 1080];
    clock_t start = clock();

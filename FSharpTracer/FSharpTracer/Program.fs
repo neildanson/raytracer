@@ -69,7 +69,7 @@ let main argv =
                  Lights = lights}
    
    let start = DateTime.Now
-   let width, height = 1920 * 2, 1080 * 2
+   let width, height = 1920, 1080
    let result = Raytracer.Render width height scene
    let endTime = DateTime.Now
    printf "%A" (endTime - start)

@@ -10,22 +10,23 @@ using namespace std;
 
 class CScene
 {
-   shared_ptr<CIntersection> Intersection(const shared_ptr<CRay>);
-   double TestRay(const shared_ptr<CRay>);
-   shared_ptr<CColor> TraceRay(const shared_ptr<CRay>, int);
-   shared_ptr<CColor> Shade(const shared_ptr<CIntersection>, int);
-   shared_ptr<CColor> GetNaturalColor(const shared_ptr<CSceneObject>, const shared_ptr<CVector>, const shared_ptr<CVector>, const shared_ptr<CVector>);
-   shared_ptr<CColor> GetReflectionColor(const shared_ptr<CSceneObject>, const shared_ptr<CVector>, const shared_ptr<CVector>, int);
+   CCamera Camera;
+   vector<CSceneObject*> Objects;
+   vector<CLight> Lights;
+
+   shared_ptr<CIntersection> Intersection(CRay);
+   double TestRay(CRay);
+   CColor TraceRay(CRay, int);
+   CColor Shade(shared_ptr<CIntersection>, int);
+   CColor GetNaturalColor(CSceneObject*, CVector, CVector, CVector);
+   CColor GetReflectionColor(CSceneObject*, CVector, CVector, int);
    double RecenterX(int, double, double);
    double RecenterY(int, double, double);
-   shared_ptr<CVector> GetPoint(int, int, double, double, double, double, const shared_ptr<CCamera>);
+   CVector GetPoint(int, int, double, double, double, double, CCamera);
 
 public:
-   const shared_ptr<CCamera> Camera;
-   const vector<shared_ptr<CSceneObject>> Objects;
-   const vector<shared_ptr<CLight>> Lights;
-   CScene(shared_ptr<CCamera>,
-      vector<shared_ptr<CSceneObject>>,
-      vector<shared_ptr<CLight>>);
+   CScene(CCamera,
+      vector<CSceneObject*>,
+      vector<CLight>);
    int* Render(int, int, int*);
 };

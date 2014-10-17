@@ -6,13 +6,13 @@ using namespace std;
 
 class CColor
 {
+   double R, G, B;
    int Legalize(double);
 public:
-   const double R, G, B;
    CColor(double r, double g, double b);
-   shared_ptr<CColor> Add(const shared_ptr<CColor> c);
-   shared_ptr<CColor> Subtract(const shared_ptr<CColor> c);
-   shared_ptr<CColor> Scale(double s);
-   shared_ptr<CColor> Multiply(const shared_ptr<CColor> c);
+   CColor Add(CColor c);
+   CColor Subtract(CColor c);
+   CColor Scale(double s);
+   CColor Multiply(CColor c);
    int ToColor();
 };

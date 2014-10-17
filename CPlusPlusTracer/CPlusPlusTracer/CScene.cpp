@@ -1,12 +1,12 @@
 #include "CScene.h"
 
-CScene::CScene(shared_ptr<CCamera> camera,
-   vector<shared_ptr<CSceneObject>> objects,
-   vector<shared_ptr<CLight>> lights)
+CScene::CScene(CCamera camera,
+   vector<CSceneObject*> objects,
+   vector<CLight> lights)
    : Camera(camera), Objects(objects), Lights(lights) {
 }
 
-shared_ptr<CIntersection> CScene::Intersection(const shared_ptr<CRay> ray) {
+shared_ptr<CIntersection> CScene::Intersection(CRay ray) {
    shared_ptr<CIntersection> intersection = nullptr;
    for (int i = 0; i < this->Objects.size(); i++) {
       auto object = this->Objects[i];
@@ -15,7 +15,7 @@ shared_ptr<CIntersection> CScene::Intersection(const shared_ptr<CRay> ray) {
          if (intersection == nullptr) {
             intersection = isect;
          }
-         else if (isect->Distance < intersection->Distance) {
+         else if (isect->GetDistance() < intersection->GetDistance()) {
             intersection = isect;
          }
       }
@@ -23,60 +23,60 @@ shared_ptr<CIntersection> CScene::Intersection(const shared_ptr<CRay> ray) {
    return intersection;
 }
 
-double CScene::TestRay(const shared_ptr<CRay> ray) {
+double CScene::TestRay(CRay ray) {
    auto intersection = this->Intersection(ray);
-   return intersection == nullptr ? 0.0 : intersection->Distance;
+   return intersection == nullptr ? 0.0 : intersection->GetDistance();
 }
 
-shared_ptr<CColor> CScene::TraceRay(const shared_ptr<CRay> ray, int depth) {
-   auto black = make_shared<CColor>(0.0, 0.0, 0.0);
+CColor CScene::TraceRay(CRay ray, int depth) {
+   auto black = CColor(0.0, 0.0, 0.0);
    auto intersection = this->Intersection(ray);
    return intersection == nullptr ? black : this->Shade(intersection, depth);
 }
 
-shared_ptr<CColor> CScene::Shade(shared_ptr<CIntersection> intersection, int depth) {
-   auto pos = intersection->Ray->Direction->Scale(intersection->Distance)->Add(intersection->Ray->Position);
-   auto normal = intersection->Object->Normal(pos);
-   auto dot = normal->Dot(intersection->Ray->Direction);
-   auto reflectDir = intersection->Ray->Direction->Subtract(normal->Scale(2.0 * dot));
-   auto natural = this->GetNaturalColor(intersection->Object, pos, normal, reflectDir);
+CColor CScene::Shade(shared_ptr<CIntersection> intersection, int depth) {
+   auto pos = intersection->GetRay().GetDirection().Scale(intersection->GetDistance()).Add(intersection->GetRay().GetPosition());
+   auto normal = intersection->GetObject()->Normal(pos);
+   auto dot = normal.Dot(intersection->GetRay().GetDirection());
+   auto reflectDir = intersection->GetRay().GetDirection().Subtract(normal.Scale(2.0 * dot));
+   auto natural = this->GetNaturalColor(intersection->GetObject(), pos, normal, reflectDir);
    if (depth < 5) {
-      auto reflectPos = reflectDir->Scale(0.0001)->Add(pos);
-      auto reflectColor = this->GetReflectionColor(intersection->Object, reflectPos, reflectDir, depth);
-      return natural->Add(reflectColor);
+      auto reflectPos = reflectDir.Scale(0.0001).Add(pos);
+      auto reflectColor = this->GetReflectionColor(intersection->GetObject(), reflectPos, reflectDir, depth);
+      return natural.Add(reflectColor);
    }
-   auto grey = make_shared<CColor>(0.5, 0.5, 0.5);
-   return grey->Add(natural);
+   auto grey = CColor(0.5, 0.5, 0.5);
+   return grey.Add(natural);
 }
 
-shared_ptr<CColor> CScene::GetNaturalColor(const shared_ptr<CSceneObject> object, const shared_ptr<CVector> position, const shared_ptr<CVector> normal, const shared_ptr<CVector> rayDirection) {
-   auto black = make_shared<CColor>(0.0, 0.0, 0.0);
+CColor CScene::GetNaturalColor(CSceneObject* object, CVector position, CVector normal, CVector rayDirection) {
+   auto black = CColor(0.0, 0.0, 0.0);
    auto result = black;
    for (int i = 0; i < this->Lights.size(); i++) {
       auto light = this->Lights[i];
-      auto lightDistance = light->Position->Subtract(position);
-      auto livec = lightDistance->Normalize();
-      auto ray = make_shared<CRay>(position, livec);
+      auto lightDistance = light.GetPosition().Subtract(position);
+      auto livec = lightDistance.Normalize();
+      auto ray = CRay(position, livec);
       auto isect = this->TestRay(ray);
-      auto isInShadow = (isect > lightDistance->Length() || isect == 0.0);
+      auto isInShadow = (isect > lightDistance.Length() || isect == 0.0);
       if (isInShadow) {
-         auto illum = livec->Dot(normal);
-         auto lcolor = illum > 0 ? light->Color->Scale(illum) : black;
-         auto normalizedRayDirection = rayDirection->Normalize();
-         auto specular = livec->Dot(normalizedRayDirection);
-         auto scolor = specular > 0.0 ? light->Color->Scale(pow(specular, object->GetSurface()->Roughness())):black;
-         auto diffuseResult = object->GetSurface()->Diffuse(position)->Multiply(lcolor);
-         auto specularResult = object->GetSurface()->Specular(position)->Multiply(scolor);
-         result = result->Add(diffuseResult)->Add(specularResult);
+         auto illum = livec.Dot(normal);
+         auto lcolor = illum > 0 ? light.GetColor().Scale(illum) : black;
+         auto normalizedRayDirection = rayDirection.Normalize();
+         auto specular = livec.Dot(normalizedRayDirection);
+         auto scolor = specular > 0.0 ? light.GetColor().Scale(pow(specular, object->GetSurface()->Roughness())):black;
+         auto diffuseResult = object->GetSurface()->Diffuse(position).Multiply(lcolor);
+         auto specularResult = object->GetSurface()->Specular(position).Multiply(scolor);
+         result = result.Add(diffuseResult).Add(specularResult);
       }
    }
 
    return result;
 }
 
-shared_ptr<CColor> CScene::GetReflectionColor(const shared_ptr<CSceneObject> object, const shared_ptr<CVector> pos, const shared_ptr<CVector> rayDirection, int depth) {
-   auto ray = make_shared<CRay>(pos, rayDirection);
-   return this->TraceRay(ray, depth + 1)->Scale(object->GetSurface()->Reflect(pos));
+CColor CScene::GetReflectionColor(CSceneObject* object, CVector pos, CVector rayDirection, int depth) {
+   auto ray = CRay(pos, rayDirection);
+   return this->TraceRay(ray, depth + 1).Scale(object->GetSurface()->Reflect(pos));
 }
 
 double CScene::RecenterX(int x, double halfWidth, double invWidth) {
@@ -89,10 +89,10 @@ double CScene::RecenterY(int y, double halfHeight, double invHeight) {
    return -(fy - halfHeight) * invHeight;
 }
 
-shared_ptr<CVector> CScene::GetPoint(int x, int y, double halfWidth, double halfHeight, double invWidth, double invHeight, const shared_ptr<CCamera> camera) {
-   auto right = camera->Right->Scale(this->RecenterX(x, halfWidth, invWidth));
-   auto up = camera->Up->Scale(this->RecenterY(y, halfHeight, invHeight));
-   return right->Add(up)->Add(camera->Forward)->Normalize();
+CVector CScene::GetPoint(int x, int y, double halfWidth, double halfHeight, double invWidth, double invHeight, CCamera camera) {
+   auto right = camera.GetRight().Scale(this->RecenterX(x, halfWidth, invWidth));
+   auto up = camera.GetUp().Scale(this->RecenterY(y, halfHeight, invHeight));
+   return right.Add(up).Add(camera.GetForward()).Normalize();
 }
 
 int* CScene::Render(int width, int height, int* result) {
@@ -110,8 +110,8 @@ int* CScene::Render(int width, int height, int* result) {
       basey = y * width;
       for (int x = 0; x < width; x++) {
          auto rayDir = this->GetPoint(x, y, halfWidth, halfHeight, invWidth, invHeight, this->Camera);
-         auto ray = make_shared<CRay>(this->Camera->Position, rayDir);
-         result[basey + x] = this->TraceRay(ray, 0)->ToColor();
+         auto ray = CRay(this->Camera.GetPosition(), rayDir);
+         result[basey + x] = this->TraceRay(ray, 0).ToColor();
       }
    }
    return result;

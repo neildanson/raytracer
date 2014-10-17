@@ -8,9 +8,12 @@ class CSceneObject;
 
 class CIntersection
 {
+	CRay Ray;
+	CSceneObject* Object;
+	double Distance;
 public:
-   const shared_ptr<CRay> Ray;
-   const shared_ptr<CSceneObject> Object;
-   const double Distance;
-   CIntersection(const shared_ptr<CRay>, double, const shared_ptr<CSceneObject>);
+	CIntersection(CRay, double, CSceneObject*);
+	CRay GetRay();
+	CSceneObject* GetObject();
+	double GetDistance();
 };
