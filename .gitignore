@@ -8,3 +8,6 @@ CPlusPlusTracer/CPlusPlusTracer/Debug/
 *.psess
 *.opensdf
 *.png
+SwiftTracer/Build/
+*.tga
+SwiftTracer/SwiftTracer.xcodeproj/xcuserdata/

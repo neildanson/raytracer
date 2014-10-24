@@ -69,7 +69,7 @@ int main(int argc, char*  argv[])
    printf("%f\n", (double)(end - start) / CLOCKS_PER_SEC);
    stbi_write_png("Cpp.png", 1920, 1080, 4, result, 1920 * 4);
 
-   //string str;
-   //getline(cin, str);
+   string str;
+   getline(cin, str);
    return 0;
 }
