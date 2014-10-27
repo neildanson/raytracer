@@ -82,39 +82,39 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CCamera.h" />
-    <ClInclude Include="CCheckerboard.h" />
-    <ClInclude Include="CColor.h" />
-    <ClInclude Include="CIntersection.h" />
-    <ClInclude Include="CLight.h" />
-    <ClInclude Include="CPlane.h" />
-    <ClInclude Include="CRay.h" />
-    <ClInclude Include="CScene.h" />
-    <ClInclude Include="CSceneObject.h" />
-    <ClInclude Include="CShiny.h" />
-    <ClInclude Include="CSphere.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Checkerboard.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="Intersection.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="Plane.h" />
+    <ClInclude Include="Ray.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="Shiny.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="stb_image_write.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="CSurface.h" />
+    <ClInclude Include="Surface.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="CVector.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CCamera.cpp" />
-    <ClCompile Include="CCheckerboard.cpp" />
-    <ClCompile Include="CColor.cpp" />
-    <ClCompile Include="CPlane.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Checkerboard.cpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="CPlusPlusTracer.cpp" />
-    <ClCompile Include="CIntersection.cpp" />
-    <ClCompile Include="CLight.cpp" />
-    <ClCompile Include="CRay.cpp" />
-    <ClCompile Include="CScene.cpp" />
-    <ClCompile Include="CSceneObject.cpp" />
-    <ClCompile Include="CShiny.cpp" />
-    <ClCompile Include="CSphere.cpp" />
+    <ClCompile Include="Intersection.cpp" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="Shiny.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="CVector.cpp" />
-    <ClCompile Include="CSurface.cpp" />
+    <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="Surface.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

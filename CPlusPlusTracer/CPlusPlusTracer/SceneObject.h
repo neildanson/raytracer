@@ -1,7 +1,7 @@
 #pragma once
-#include "CIntersection.h"
-#include "CRay.h"
-#include "CSurface.h"
+#include "Intersection.h"
+#include "Ray.h"
+#include "Surface.h"
 
 #include <memory>
 using namespace std;

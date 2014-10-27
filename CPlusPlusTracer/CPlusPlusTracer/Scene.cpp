@@ -1,4 +1,4 @@
-#include "CScene.h"
+#include "Scene.h"
 
 CScene::CScene(CCamera camera,
    vector<CSceneObject*> objects,

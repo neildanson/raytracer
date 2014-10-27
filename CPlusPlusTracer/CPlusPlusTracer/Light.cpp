@@ -1,4 +1,4 @@
-#include "CLight.h"
+#include "Light.h"
 
 CLight::CLight(CVector position, CColor CColor) : Position(position), Color(CColor) {
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "CRay.h"
+#include "Ray.h"
 
 #include <memory>
 using namespace std;

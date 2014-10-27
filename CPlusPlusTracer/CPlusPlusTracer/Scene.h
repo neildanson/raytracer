@@ -1,7 +1,7 @@
 #pragma once
-#include "CCamera.h"
-#include "CLight.h"
-#include "CSceneObject.h"
+#include "Camera.h"
+#include "Light.h"
+#include "SceneObject.h"
 
 #include <math.h>
 #include <memory>

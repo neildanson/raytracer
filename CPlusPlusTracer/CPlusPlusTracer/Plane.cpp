@@ -1,4 +1,4 @@
-#include "CPlane.h"
+#include "Plane.h"
 
 
 CPlane::CPlane(CVector normal, double offset, shared_ptr<CSurface> surface)

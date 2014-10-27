@@ -1,4 +1,4 @@
-#include "CSphere.h"
+#include "Sphere.h"
 
 CSphere::CSphere(CVector position, double radius, shared_ptr<CSurface> surface)
    : Position(position), Radius(radius), Surface(surface) {

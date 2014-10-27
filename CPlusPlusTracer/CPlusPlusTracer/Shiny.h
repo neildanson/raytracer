@@ -1,10 +1,10 @@
 #pragma once
-#include "CSurface.h"
+#include "Surface.h"
 
 #include <memory>
 using namespace std;
 
-class CCheckerboard : public CSurface
+class CShiny : public CSurface
 {
 public:
    double Roughness();
@@ -12,4 +12,3 @@ public:
    CColor Specular(CVector);
    double Reflect(CVector);
 };
-

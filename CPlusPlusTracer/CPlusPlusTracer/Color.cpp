@@ -1,4 +1,4 @@
-#include "CColor.h"
+#include "Color.h"
 
 CColor::CColor(double r, double g, double b) : R(r), G(g), B(b) {
 }

@@ -1,4 +1,4 @@
-#include "CCamera.h"
+#include "Camera.h"
 
 CCamera::CCamera(CVector position, CVector forward, CVector right, CVector up)
    : Position(position), Forward(forward), Right(right), Up(up) {

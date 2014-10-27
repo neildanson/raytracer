@@ -1,4 +1,4 @@
-#include "CIntersection.h"
+#include "Intersection.h"
 
 CIntersection::CIntersection(CRay ray, double distance, CSceneObject* object)
    : Ray(ray), Distance(distance), Object(object)

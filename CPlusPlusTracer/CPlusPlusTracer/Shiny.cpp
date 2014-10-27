@@ -1,4 +1,4 @@
-#include "CShiny.h"
+#include "Shiny.h"
 
 double CShiny::Roughness() {
    return 50.0;

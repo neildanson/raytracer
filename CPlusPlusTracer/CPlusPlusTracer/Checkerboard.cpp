@@ -1,4 +1,4 @@
-#include "CCheckerboard.h"
+#include "Checkerboard.h"
 
 double CCheckerboard::Roughness() {
    return 150.0;

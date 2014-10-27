@@ -1,13 +1,13 @@
 //g++ *.cpp -std=c++11 -O3
-#include "CCamera.h"
-#include "CVector.h"
-#include "CLight.h"
-#include "CSceneObject.h"
-#include "CScene.h"
-#include "CSphere.h"
-#include "CPlane.h"
-#include "CShiny.h"
-#include "CCheckerboard.h"
+#include "Camera.h"
+#include "Vector.h"
+#include "Light.h"
+#include "SceneObject.h"
+#include "Scene.h"
+#include "Sphere.h"
+#include "Plane.h"
+#include "Shiny.h"
+#include "Checkerboard.h"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"

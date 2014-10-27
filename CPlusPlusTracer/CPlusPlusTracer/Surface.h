@@ -1,6 +1,6 @@
 #pragma once
-#include "CColor.h"
-#include "CVector.h"
+#include "Color.h"
+#include "Vector.h"
 
 #include <memory>
 using namespace std;

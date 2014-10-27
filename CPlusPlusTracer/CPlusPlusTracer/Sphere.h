@@ -1,7 +1,7 @@
 #pragma once
-#include "CSceneObject.h"
-#include "CSurface.h"
-#include "CVector.h"
+#include "SceneObject.h"
+#include "Surface.h"
+#include "Vector.h"
 
 #include <memory>
 using namespace std;

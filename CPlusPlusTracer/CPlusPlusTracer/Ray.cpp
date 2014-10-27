@@ -1,4 +1,4 @@
-#include "CRay.h"
+#include "Ray.h"
 
 CRay::CRay(CVector position, CVector direction) : Position(position), Direction(direction) {
 }
