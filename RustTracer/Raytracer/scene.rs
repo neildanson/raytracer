@@ -15,16 +15,13 @@ pub struct Scene<'a> {
 
 impl<'a> Scene<'a> {
 	fn intersection(&'a self, ray : Ray) -> Option<(Intersection, &SceneObject<'a>)> {
-		let mut intersection  :Option<(Intersection, &'a SceneObject)> = None;
-		for object in self.objects.iter() {
+		self.objects.iter().fold(None, |intersection: Option<(Intersection, _)>, object| {
 			let isect = object.intersects(ray);
-			intersection = match (isect, intersection) {
-								(Some((i1,_)), Some((i2,_))) => if i1.distance < i2.distance { isect } else { intersection }, 
-								(Some(_), None) => isect,
-								(None, _) => intersection
-			}
-		}
-		intersection
+			match (isect, intersection) {
+				(Some((i1,_)), Some((i2,_))) => if i1.distance < i2.distance { isect } else { intersection }, 
+				(Some(_), None) => isect,
+				(None, _) => intersection
+			}})
 	}
 
 	fn test_ray(&'a self, ray:Ray) -> f64 {
@@ -62,8 +59,7 @@ impl<'a> Scene<'a> {
 
 	fn get_natural_color(&'a self, object : &'a SceneObject<'a>, position : Vector, normal : Vector, ray_direction : Vector ) -> Color {
 		let black = Color{r: 0.0, g: 0.0, b: 0.0};
-		let mut result = black;
-		for light in self.lights.iter() {
+		self.lights.iter().fold(black, |result, light|  {
 			let light_distance = light.position.subtract(position);
 			let livec = light_distance.normalize();
 			let ray = Ray{position: position, direction: livec};
@@ -85,10 +81,11 @@ impl<'a> Scene<'a> {
 				let diffuse_result = object.get_surface().diffuse(position).multiply(lcolor);
 				let specular_result = object.get_surface().specular(position).multiply(scolor);
 
-				result = result.add(diffuse_result).add(specular_result)
+				result.add(diffuse_result).add(specular_result)
+			} else {
+				result
 			}
-		}
-		result
+		})
 	}
 
 	fn get_reflection_color(&'a self, object : &'a SceneObject<'a>, pos:Vector, ray_direction : Vector, depth :int ) -> Color {
